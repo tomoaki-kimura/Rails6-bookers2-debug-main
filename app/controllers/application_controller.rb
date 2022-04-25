@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  def require_user_logged_in
+    redirect_to new_user_session_url unless user_signed_in?
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end

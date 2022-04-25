@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :correct_user, only: [ :create, :edit, :update, :desrroy ]
+  before_action :require_user_logged_in
+  before_action :correct_user, only: [ :edit, :update, :destroy ]
   def show
     @book = Book.find(params[:id])
   end
@@ -46,6 +47,6 @@ class BooksController < ApplicationController
 
   def correct_user
     @book = current_user&.books&.find_by(id: params[:id])
-    redirect_to root_url unless @book
+    redirect_to books_url unless @book
   end
 end
