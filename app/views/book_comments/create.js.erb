@@ -1,0 +1,18 @@
+$('#book_comment__form--comment-errors').html('');
+$('#book_comment__comment').val('').removeClass('is-invalid');
+$('#comment_count').html('<%= @book.book_comments.count %>');
+$('#book_comment__items').append(
+    `
+        <tr id="book_comment__item-<%= @book_comment.id %>">
+            <td>
+              <%= link_to(@book_comment.user) do %>
+                <%= image_tag @book_comment.user.get_profile_image, size:'50x50' %><br>
+                <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td><%= @book_comment.comment %></td>
+            <td><%= link_to "Destroy", @book_comment, method: :delete, remote: true, class: "btn btn-danger btn-sm" if current_user == @book_comment.user %></td>
+        </tr>
+    `
+)
+

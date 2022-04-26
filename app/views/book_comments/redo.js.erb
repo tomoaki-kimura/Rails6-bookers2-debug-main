@@ -1,0 +1,9 @@
+$('#book_comment__form--comment-errors').html(
+    `
+      <div class="invalid-feedback">
+        <%==j @book_comment.errors.full_messages.join("<br>") %>
+      </div>
+    `
+);
+$('#book_comment__comment').addClass('is-invalid');
+$('.invalid-feedback').show();

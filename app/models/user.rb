@@ -29,4 +29,6 @@ class User < ApplicationRecord
   def favorite?(book)
     favorite_books.include?(book)
   end
+
+  has_many :book_comments, dependent: :destroy
 end

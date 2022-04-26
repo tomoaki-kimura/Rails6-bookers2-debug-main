@@ -3,11 +3,13 @@ class BooksController < ApplicationController
   before_action :correct_user, only: [ :edit, :update, :destroy ]
   def show
     @book = Book.find(params[:id])
+    @book_comment = BookComment.new
+    @book_comments = @book.book_comments.includes(:user)
   end
 
   def index
     @book = Book.new
-    @books = Book.includes(:user)
+    @books = Book.includes(user: { profile_image_attachment: :blob })
   end
 
   def create

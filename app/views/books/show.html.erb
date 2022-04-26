@@ -18,13 +18,30 @@
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
           <td id="favorite_button-<%= @book.id %>"><%= render 'favorites/favorite_button', book: @book %></td>
-          <td>コメント数<%= [*1..5].sample %></td>
+          <td>コメント数<span id="comment_count"><%= @book.book_comments.count %></span></td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
           <% end %>
         </tr>
       </table>
+      <table class='table table-hover table-inverse'>
+        <tbody id="book_comment__items">
+        <% @book_comments.each do |book_comment| %>
+          <tr id="book_comment__item-<%= book_comment.id %>">
+            <td>
+              <%= link_to(book_comment.user) do %>
+                <%= image_tag book_comment.user.get_profile_image, size:'50x50' %><br>
+                <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td><%= book_comment.comment %></td>
+            <td><%= link_to "Destroy", book_comment, method: :delete, remote: true, class: "btn btn-danger btn-sm" if current_user == book_comment.user %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <%= render 'book_comments/form', book_comment: @book_comment, book: @book %>
     </div>
   </div>
 </div>

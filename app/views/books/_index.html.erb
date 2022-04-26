@@ -10,14 +10,15 @@
   <tbody>
     <% books.each do |book| %>
       <tr>
-        <td><%= link_to(book.user) do %>
-          <%= image_tag book.user.get_profile_image, size:'50x50' %>
+        <td>
+          <%= link_to(book.user) do %>
+            <%= image_tag book.user.get_profile_image, size:'50x50' %>
           <% end %>
         </td>
         <td><%= link_to book.title,book, class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
         <td id="favorite_button-<%= book.id %>"><%= render 'favorites/favorite_button', book: book %></td>
-        <td>コメント数<%= [*1..5].sample %></td>
+        <td>コメント数<%= book.book_comments.count %></td>
       </tr>
     <% end %>
   </tbody>
