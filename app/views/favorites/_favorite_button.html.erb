@@ -1,0 +1,21 @@
+<% if current_user.favorite?(book) %>
+  <%= form_with(model: current_user.favorites.find_by(book_id: book.id),
+                method: :delete,
+                local: false,
+                id: "book-#{book.id}") do |f| %>
+    <%= hidden_field_tag(:book_id, book.id) %>
+    <%= button_tag type: :submit, class: 'btn btn-default btn-s-md text-danger pt-0' do %>
+      <i class="fas fa-heart"></i><%= book.favorites.count %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= form_with(model: current_user.favorites.build,
+                mathod: :post,
+                local: false,
+                id: "book-#{book.id}") do |f| %>
+    <%= hidden_field_tag(:book_id, book.id) %>
+    <%= button_tag type: :submit, class: 'btn btn-default btn-s-md text-primary pt-0' do %>
+      <i class="far fa-heart"></i><%= book.favorites.count %>
+    <% end %>
+  <% end %>
+<% end %>
