@@ -5,7 +5,7 @@
                 id: "book-#{book.id}") do |f| %>
     <%= hidden_field_tag(:book_id, book.id) %>
     <%= button_tag type: :submit, class: 'btn btn-default btn-s-md text-danger pt-0' do %>
-      <i class="fas fa-heart"></i><%= book.favorites.count %>
+      <i class="fas fa-heart"></i><%= book.favorites.size %>
     <% end %>
   <% end %>
 <% else %>

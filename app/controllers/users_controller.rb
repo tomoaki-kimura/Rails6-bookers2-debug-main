@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.with_attached_profile_image
     @book = Book.new
   end
 
